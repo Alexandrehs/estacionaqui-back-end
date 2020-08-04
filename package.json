@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx ts-node-dev --ignore node_modules src/server.ts"
+    "dev": "npx ts-node-dev --ignore node_modules src/server.ts",
+    "knex:migrate" : "knex --knexfile knexfile.ts migrate:latest"
   },
   "repository": {
     "type": "git",
