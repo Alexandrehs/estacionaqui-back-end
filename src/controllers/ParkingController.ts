@@ -3,13 +3,16 @@ import knex from '../database/connection';
 
 class ParkingController {
   async show(request: Request, response: Response) {
-    const date = request.body.date;
-
+    const date = request.query.date;
+    
     if(date) {
-      const parking = await knex('parking').select("*").where ('created_in', date);
+      const parking = await knex('parking')
+        .select("*").where({'created_in': date});
 
       if(parking.length > 0) {
         return response.json(parking);
+      }else {
+        return response.json({msg: 'not parking created.'});
       }
     }
   }
