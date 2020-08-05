@@ -3,7 +3,7 @@ import Knex from '../database/connection';
 
 class CarParkingController {
   async show(request: Request, response: Response) {    
-    const idParking = request.body.id;
+    const idParking = request.params.id;
 
     if(idParking) {
       const carsInParking = 
