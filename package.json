@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx ts-node-dev --ignore node_modules src/server.ts"
+    "dev": "npx ts-node-dev --ignore node_modules src/server.ts",
+    "knex:migrate" : "knex --knexfile knexfile.ts migrate:latest"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,9 @@
   "homepage": "https://github.com/Alexandrehs/estacionaqui#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "knex": "^0.21.2",
+    "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.7",
