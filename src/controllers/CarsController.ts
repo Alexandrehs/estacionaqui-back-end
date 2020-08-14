@@ -12,15 +12,26 @@ class CarsController {
   
   async create(request: Request, response: Response) {
     const plate = request.body.plate;
+    const date = new Date();
+    const trx = await knex.transaction();
 
-    if(plate) {
-      const idNewCar = await knex('cars').insert({'plate': plate});
-
-      if(idNewCar.length > 0) {
-        return response.json({
-          id: idNewCar[0],
-          plate
-        });
+    const idParking = 
+      await trx('parking').select('id')
+      .where('created_in', `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`);
+      console.log(idParking[0].id);
+    if(idParking.length > 0) {
+      if(plate) {
+        const idNewCar = await trx('cars').insert({'plate': plate});
+        const newCarParking = 
+          await trx('car_parking').insert({
+            id_car: idNewCar,
+            id_parking: idParking[0].id
+          });
+  
+        if(newCarParking.length > 0) {
+          trx.commit();
+          return response.json(newCarParking[0]);
+        }
       }
     }
   }
