@@ -12,7 +12,7 @@ const parkingController = new ParkingController();
 const carParkingController = new CarParkingController();
 
 routes.post('/cars', cors(), carsController.create);
-routes.post('/cars/:id', cors(), carsController.remove);
+routes.post('/cars/:parking_id', cors(), carsController.remove);
 routes.get('/cars', cors(), carsController.show);
 
 routes.post('/parking', cors(), parkingController.create);
