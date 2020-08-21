@@ -8,14 +8,19 @@ class CarParkingController {
     if(idParking) {
       const carsInParking = 
         await Knex('car_parking')
-        .where('car_parking.id_parking', idParking)
+        .where({
+          'car_parking.id_parking': idParking,
+          'parked': true
+        })
         .innerJoin('cars', 'cars.id', 'car_parking.id_car')
         .innerJoin('parking', 'parking.id', 'car_parking.id_parking')
-        .select(
-          'cars.id', 
-          'parking.created_in', 
+        .select( 
+          'cars.id',
           'cars.plate',
-          'car_parking.time_in'
+          'parking.created_in', 
+          'car_parking.time_in',
+          'car_parking.parked',
+          'car_parking.id as parking_id'
         );
 
       if(carsInParking.length > 0) {

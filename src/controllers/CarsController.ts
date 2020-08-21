@@ -48,14 +48,23 @@ class CarsController {
   }
   
   async remove(request: Request, response: Response) {
-    const id = request.params.id;
+    const {parking_id} = request.params;
+    const time_out = new Date().toLocaleTimeString('pt-BR');
+    //const diff = Math.abs(data1.getTime() - data2.getTime());
 
-    if(id) {
-      const deleted = await knex('cars').where('id', id).del();
 
-      if(deleted) {
-        return response.json(deleted);
-      }
+    if(parking_id) {
+      const carRemovedParking = 
+        await knex('car_parking').update({
+          'time_out': time_out,
+          'parked': false
+        })
+        .where('car_parking.id_car', parking_id);
+
+      if(carRemovedParking) {
+
+        return response.json(carRemovedParking);
+      }  
     }
   }
 }
