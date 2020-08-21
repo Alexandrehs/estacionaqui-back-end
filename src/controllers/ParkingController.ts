@@ -2,6 +2,14 @@ import {Request, Response} from 'express';
 import knex from '../database/connection';
 
 class ParkingController {
+  async index(request: Request, response: Response) {
+    const allParking = await knex('parking').select('*');
+
+    if(allParking) {
+      return response.json(allParking);
+    }
+  }
+
   async show(request: Request, response: Response) {
     const date = request.query.date;
     
@@ -18,11 +26,15 @@ class ParkingController {
   }
 
   async create(request: Request, response: Response) {
-    const date = new Date();
+    const date = new Date().toLocaleString('pt-BR', {
+      day: 'numeric', 
+      month: 'numeric',
+      year: 'numeric'
+    });
 
     const idNewParking = 
       await knex('parking')
-        .insert({'created_in': `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`});
+        .insert({'created_in': date});
     
     if(idNewParking.length > 0) {
       return response.json(idNewParking[0]);

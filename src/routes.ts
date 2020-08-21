@@ -17,6 +17,7 @@ routes.get('/cars', cors(), carsController.show);
 
 routes.post('/parking', cors(), parkingController.create);
 routes.get('/parking', cors(), parkingController.show);
+routes.get('/parking_all', cors(), parkingController.index);
 
 routes.get('/car_parking/:id', cors(), carParkingController.show);
 

@@ -12,7 +12,10 @@ class CarParkingController {
         .innerJoin('cars', 'cars.id', 'car_parking.id_car')
         .innerJoin('parking', 'parking.id', 'car_parking.id_parking')
         .select(
-          'cars.id', 'car_parking.date', 'cars.plate'
+          'cars.id', 
+          'parking.created_in', 
+          'cars.plate',
+          'car_parking.time_in'
         );
 
       if(carsInParking.length > 0) {
