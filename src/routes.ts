@@ -24,7 +24,7 @@ routes.get('/parking_all', cors(), parkingController.index);
 routes.get('/car_parking/:id', cors(), carParkingController.show);
 routes.post('/car_parking', cors(), carParkingController.remove);
 
-routes.get('/prices', cors(), pricesController.index);
 routes.post('/prices', cors(), pricesController.create);
+routes.get('/prices/', cors(), pricesController.show);
 
 export default routes;
