@@ -43,7 +43,7 @@ class PricesController {
           timeParked: minutesParked,
           minute_min: item.minute_min,
           minute_max: item.minute_max,
-          preco: item.price
+          price: item.price
         });
       }
     });
