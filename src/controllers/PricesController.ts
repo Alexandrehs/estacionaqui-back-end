@@ -40,9 +40,9 @@ class PricesController {
     minutesPrice.map(item => {
       if((minutesParked > item.minute_min) && (minutesParked <= item.minute_max)) {
         return response.json({
-          tempoEstacionado: minutesParked,
-          minimo: item.minute_min,
-          maximo: item.minute_max,
+          timeParked: minutesParked,
+          minute_min: item.minute_min,
+          minute_max: item.minute_max,
           preco: item.price
         });
       }
