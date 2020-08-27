@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import Knex from '../database/connection';
+import knex from '../database/connection';
 
 class CarParkingController {
   async show(request: Request, response: Response) {    
@@ -7,7 +7,7 @@ class CarParkingController {
 
     if(idParking) {
       const carsInParking = 
-        await Knex('car_parking')
+        await knex('car_parking')
         .where({
           'car_parking.id_parking': idParking,
           'parked': true
@@ -32,18 +32,15 @@ class CarParkingController {
   }
 
   async remove(request: Request, response: Response) {
-    const {time_in, time_out} = request.body;
+    const {idParking, time_in, time_out} = request.body;
+    const carRemoved = await knex('car_parking').update({
+      'parked': false,
+      'time_in': time_in,
+      'time_out': time_out
+    })
+    .where('id', idParking);
 
-    const timeInReplace = time_in.split(':');
-    const timeOutReplace = time_out.split(':');
-
-    const hours = (timeOutReplace[0] - timeInReplace[0]);
-    const minute = (timeOutReplace[1] - timeInReplace[1]);
-
-    return response.json({
-      houras: hours,
-      minutos: minute
-    });
+    return response.json(carRemoved);
   }  
 }
 
