@@ -26,11 +26,7 @@ class ParkingController {
   }
 
   async create(request: Request, response: Response) {
-    const date = new Date().toLocaleString('pt-BR', {
-      day: 'numeric', 
-      month: 'numeric',
-      year: 'numeric'
-    });
+    const date = new Date().toLocaleDateString('pt-BR');
 
     const idNewParking = 
       await knex('parking')

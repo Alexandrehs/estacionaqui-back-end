@@ -12,12 +12,8 @@ class CarsController {
   
   async create(request: Request, response: Response) {
     const plate = request.body.plate;
-    const date = new Date().toLocaleString('pt-BR', {
-      day: 'numeric', 
-      month: 'numeric',
-      year: 'numeric'
-    });
-    const time_in = new Date().toLocaleTimeString('pt-BR')
+    const date = new Date().toLocaleDateString('pt-BR');
+    const time_in = new Date().toLocaleString('pt-BR');
     const trx = await knex.transaction();
 
     const idParking = 
@@ -48,24 +44,24 @@ class CarsController {
   }
   
   async remove(request: Request, response: Response) {
-    const {parking_id} = request.params;
+    //const {parking_id} = request.params;
     const time_out = new Date().toLocaleTimeString('pt-BR');
-    //const diff = Math.abs(data1.getTime() - data2.getTime());
 
+    
+    
+    //if(parking_id) {
+    //  const carRemovedParking = 
+    //    await knex('car_parking').update({
+    //      'time_out': time_out,
+    //      'parked': false
+    //    })
+    //    .where('car_parking.id_car', parking_id);
 
-    if(parking_id) {
-      const carRemovedParking = 
-        await knex('car_parking').update({
-          'time_out': time_out,
-          'parked': false
-        })
-        .where('car_parking.id_car', parking_id);
+    //  if(carRemovedParking) {
 
-      if(carRemovedParking) {
-
-        return response.json(carRemovedParking);
-      }  
-    }
+    //    return response.json(carRemovedParking);
+     // }  
+    //}
   }
 }
 
