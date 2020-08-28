@@ -13,7 +13,10 @@ class CarsController {
   async create(request: Request, response: Response) {
     const plate = request.body.plate;
     const date = new Date().toLocaleDateString('pt-BR');
-    const time_in = new Date().toLocaleString('pt-BR');
+    const time_in = new Date().toLocaleString('pt-BR', {
+      hour: 'numeric',
+      minute: 'numeric'
+    });
     const trx = await knex.transaction();
 
     const idParking = 
@@ -28,7 +31,7 @@ class CarsController {
             id_car: idNewCar,
             id_parking: idParking[0].id,
             time_in, 
-            time_out: 'in parking'
+            time_out: ' '
           });
   
         if(newCarParking.length > 0) {

@@ -32,13 +32,13 @@ class CarParkingController {
   }
 
   async remove(request: Request, response: Response) {
-    const {idParking, time_in, time_out} = request.body;
+    const {parking_id, time_in, time_out} = request.body;
     const carRemoved = await knex('car_parking').update({
       'parked': false,
       'time_in': time_in,
       'time_out': time_out
     })
-    .where('id', idParking);
+    .where('id', parking_id);
 
     return response.json(carRemoved);
   }  
