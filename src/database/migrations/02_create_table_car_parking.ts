@@ -5,6 +5,8 @@ export async function up(knex: Knex) {
     table.increments('id').primary();
     table.string('id_car').references('id').inTable('cars');
     table.string('id_parking').references('id').inTable('parking');
+    table.string('time_in').notNullable();
+    table.string('time_out').notNullable();
     table.boolean('parked').defaultTo(true);
   });
 }
